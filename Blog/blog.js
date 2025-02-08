@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     articles.forEach(article => {
         let descriptionHTML = '';
-
         if (article.description.length > threshold) {
             const truncatedText = article.description.slice(0, threshold);
             const remainingText = article.description.slice(threshold);
@@ -57,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="review-content">
           <h2>${article.title}</h2>
-          <img src="${article.imgSrc}" alt="${article.imgAlt}">
+          <img src="${article.imgSrc}" alt="${article.imgAlt}" width="200" height="300">
           <p class="description">${descriptionHTML}</p>
 
         </div>
