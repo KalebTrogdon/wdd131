@@ -23,8 +23,20 @@ const articles = [
         ages: '12-16',
         genre: 'Fantasy',
         stars: '⭐⭐⭐⭐'
+    },
+    {
+        id: 3,
+        title: "Belgariad Book One: Pawn of Prophecy",
+        date: "Feb 12, 2022",
+        description:
+            "A fierce dispute among the Gods and the theft of a powerful Orb leaves the World divided into five kingdoms. Young Garion, with his \"Aunt Pol\" and an elderly man calling himself Wolf --a father and daughter granted near-immortality by one of the Gods -- set out on a complex mission.",
+        imgSrc: "https://images-na.ssl-images-amazon.com/images/I/41ZxXA+nInL.jpg",
+        imgAlt: "Book cover for Pawn of Prophecy",
+        ages: "12-16",
+        genre: "Fantasy",
+        stars: "⭐⭐⭐⭐⭐"
     }
-]
+];
 
 document.addEventListener('DOMContentLoaded', () => {
     const reviewsContainer = document.querySelector('.reviews');
@@ -37,13 +49,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const truncatedText = article.description.slice(0, threshold);
             const remainingText = article.description.slice(threshold);
             descriptionHTML = `
-        <span class="truncated">${truncatedText}</span>
-        <span class="ellipsis">...</span>
-        <span class="more" style="display: none;">${remainingText}</span>
-        <a href="#" class="read-more"> Read more</a>
-      `;
+                <span class="truncated">${truncatedText}</span>
+                <span class="ellipsis">...</span>
+                <span class="more" style="display: none;">${remainingText}</span>
+                <a href="#" class="read-more"> Read more</a>
+            `;
         } else {
             descriptionHTML = article.description;
+        }
+
+        let imageHTML = '';
+        if (article.imgWebp) {
+            imageHTML = `
+        <picture>
+          <source srcset="${article.imgWebp}" type="image/webp">
+          <img src="${article.imgSrc}" alt="${article.imgAlt}" width="200" height="300">
+        </picture>
+      `;
+        } else {
+            imageHTML = `<img src="${article.imgSrc}" alt="${article.imgAlt}" width="200" height="300">`;
         }
 
         articlesHTML += `
