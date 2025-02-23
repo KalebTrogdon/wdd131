@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Custom Card Payment</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+    <script src="https://use.fontawesome.com/f1e0bf0cbc.js"></script>
+</head>
+
+<body>
+    <div id="success-msg" class="hidden">
+        <i class="fa fa-check"></i>
+        <p>Payment Successful!</p>
+    </div>
+    <div id="error-msg" class="hidden">
+        <i class="fa fa-exclamation-triangle"></i>
+        <p id="error-text">Card error</p>
+    </div>
+    <div id="payment-box">
+        <div id="card-front">
+            <div id="card-shadow"></div>
+            <div id="header-area">
+                <span id="price-tag">Paying: <strong>$99</strong></span>
+                <span id="logo-box">
+                    <img src="image/favicon.png" alt="Card Logo" height="55">
+                </span>
+            </div>
+            <label for="input-number">Card Number</label>
+            <input type="text" id="input-number" placeholder="1234 5678 9101 1112" maxlength="16">
+            <div id="holder-section">
+                <label for="input-holder">Card Holder</label>
+                <input type="text" id="input-holder" placeholder="e.g. Jane Doe">
+            </div>
+            <div id="expiry-section">
+                <label for="input-exp" id="exp-label">Expiration</label>
+                <div class="exp-inputs">
+                    <input id="input-exp-month" type="text" placeholder="MM" maxlength="2">
+                    <input id="input-exp-year" type="text" placeholder="YY" maxlength="2">
+                </div>
+            </div>
+            <div id="cvc-section">
+                <label for="input-cvc">CVC/CVV</label>
+                <input id="input-cvc" type="text" placeholder="XXX-X" minlength="3" maxlength="4">
+                <p class="cvc-note">Last 3 or 4 digits</p>
+            </div>
+        </div>
+        <div id="card-back">
+            <div id="stripe"></div>
+        </div>
+        <input type="hidden" id="token-input">
+        <button type="button" id="pay-btn">Submit</button>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://js.stripe.com/v2/"></script>
+    <script>
+        $(document).ready(function () {
+            Stripe.setPublishableKey('pk_test_9D43kM3d2vEHZYzPzwAblYXl');
+            function markEmpty() {
+                $('#payment-box input').each(function () {
+                    if (!$(this).val()) {
+                        $(this).addClass('input-invalid');
+                    }
+                });
+            }
+            function refreshLogo() {
+                var number = $('#input-number').val();
+                var type = Stripe.card.cardType(number);
+                var logoMarkup = '';
+                if (type === 'Visa') {
+                    logoMarkup = '<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pjxzdmcgdmlld0JveD0iMCAwIDEyOCAxMjgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iI0YwRUZFRiI+PHBhdGggZD0iTTExNy44ODYsMTAzLjA1NUgxMC4xMTRDNS42MzMsMTAzLjA1NSwyLDk5LjQyMiwgMi45OTUsOTQuOTQxVjMzLjA1OWMwLTQuNDgxLDMuNjMzLTguMTE0LDguMTE0LTguMTE0aDEwNy43NzFjNC40ODEsMCw4LjExNCwzLjYzMyw4LjExNCw4LjExNHY2MS44ODFDMTI2LDk5LjQyMiwxMjIuMzY3LDEwMy4wNTUsMTE3Ljg4NiwxMDMuMDU1eiIvPjwvZz48L3N2Zz4=" height="55px">';
+                } else if (type === 'Master Card') {
+                    logoMarkup = '<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pjxzdmcgdmlld0JveD0iMCAwIDEyOCAxMjgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iI0Y2QjE5QiIvPjxwYXRoIGQ9Ik01NC43MjcsNjQuMDg1YzAtMTUuMzk0LDEyLjQ3OS0yNy44NzIsMjcuODczLTI3Ljg3MmMxNS4zOTUsMCwyNy44NywxMi40NzcsMjcuODcsMjcuODcyYzAsMTUuMzkzLTEyLjQ3NSwyNy44NzItMjcuODcsMjcuODcyQzY3LjIwNiw5MS45NTcsNTQuNzI3LDc5LjQ3Nyw1NC43MjcsNjQuMDg1TDU0LjcyNyw2NC4wODV6IiBmaWxsPSIjRkZGRkZGIi8+PC9zdmc+';
+                } else if (type === 'Discover') {
+                    logoMarkup = '<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIxMDBweCIgdmlld0JveD0iMCAwIDE2MCAxMDAiIHdpZHRoPSIxNjBweCIgeG1sbnM9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9uczEiPjx0aXRsZS8+PGRlZnMvPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIj48Zz48cGF0aCBkPSJNMTRoLTE1MC44NzVDMC41MDUxLDAsMCwwLjUwNTEsMCwxMDAiIGZpbGw9IiNGNEY0RjQiLz48cGF0aCBkPSJNMTYwLDQ1LjMxMjVWNTcuNjg3QzE2MCw2Mi41MDQsMTYwLjUwNSw2Ny42NTMsMTYwLjg3NSw3Mi41NjVWOTkuMDA3TDE2MCw5OS45OTdsLTE2MC0yOS45OTdsLTE2MCwyOS45OTdWMzIuNTU2QzIwLjQ5NSwzNy42NTMsMjYsNDIuNSwzNiw0NS4zMTI1VjQ1LjMxMjVaIiBmaWxsPSIjRkZGRkZGIi8+PGNpcmNsZSBjeD0iMjAiIGN5PSIzNSIgZmlsbD0iI0ZGRkZGRiIgZmlsbC1ydWxlPSJldmVub2RkIiByeD0iMyIvPjxjaXJjbGUgY3g9IjExMCIgY3k9IjMzIiBmaWxsPSIjRkZGRkZGIiBmaWxsLXVuaXRzPSJ1c2VyU3BhY2UiIHJ4PSIzIi8+PGNpcmNsZSBjeD0iODIiIGN5PSIzMyIgZmlsbD0iI0ZGRkZGRiIgZmlsbC1ydWxlPSJldmVub2RkIiByeD0iMyIvPjwvZz48L2c+PC9zdmc+';
+                } else if (type === 'American Express') {
+                    logoMarkup = '<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIxMDBweCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIHdpZHRoPSIxMjhweCIgeG1sbnM9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9uczEiPjx0aXRsZS8+PGRlZnMvPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIj48Zz48cGF0aCBkPSJNMTE3Ljg4NiwxMDMuMDU1SDEwLjExNEM1LjYzMywxMDMuMDU1LDIsOTkuNDIyLDIsOTQuOTQxVjMzLjA1OWMwLTQuNDgxLDMuNjMzLTguMTE0LDguMTE0LTguMTE0aDEwNy43NzEgYzQuNDgxLDAsOC4xMTQsMy42MzMsOC4xMTQsOC4xMTR2NjEuODgxQzEyNiw5OS40MjIsMTIyLjM2NywxMDMuMDU1LDExNy44ODYsMTAzLjA1NXoiLz48L2c+PC9zdmc+';
+                } else {
+                    logoMarkup = '<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgZGF0YS1uYW1lPSJMYXllciAxIiBpZD0iTGF5ZXJfMSIgdmlld0JveD0iMCAwIDYwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxzdHlsZT4uY2xzLTEsLmNscy0xMCwuY2xzLTEsLmNscy0yLC5jbHMtNixuY2xzLTd7ZmlsbDpub25lO30uY2xzLXh7Y2xpcC1ydWxlOmV2ZW5vZGQ7fS5jbHMtMntjbGlwLXJ1bGU6ZXZlbm9kZDt9LmNscy03e2ZpbGw6I0ZGRkZGRjt9LmNscy04e2NsaXAtcGF0aDp1cmwoI2NsaXAtcGF0aCk7fS5jbHMtOXtmaWxsOiNmZTg2NTc7fS5jbHMtMTAsLmNscy0xMCwuY2xzLTExLC5jbHMtN3tzdHJva2UtbGluZWpvaW46cm91bmQ7fS5jbHMtMTAsLmNscy02e3N0cm9rZS1saW5lY2FwOnJvdW5kO30uY2xzLTExLC5jbHMtNyw uY2xzLTExLC5jbHMtN3tzdHJva2Utd2lkdGg6MnB4O30uY2xzLTJ7Y2xpcC1wYXRoOnVybCgjY2xpcC1wYXRoLTQpO30uY2xzLTV7ZmlsbDojZmZkYzgyO308PC9zdHlsZT48Y2xpcFBhdGggaWQ9ImNsaXAtcGF0aCI+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMSw0NlYxOGE1LDUsMCwwLDEsNS01SDI2QTUsNSwwLDAsMSwxLDFWNDZaTTIsMGEzLDMsMCwwLDAsMywzSDU0YTMsMywwLDAsMCwzLTNWMThhMywzLDAsMCwwLTMtM0g2YTMsMywwLDAsMC0zLDNWNDZaIi8+PC9jbGlwUGF0aD48Y2xpcFBhdGggaWQ9ImNsaXAtcGF0aC0yIj48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0yLDQ2YTQsNCwwLDAsMCw0LDRINTRhNCw0LDAsMCwwLDQtNFYxOGE0LDQsMCwwLDAtNC00SDZhNCw0LDAsMCwwLTQsNFY0NloiLz48L2NsaXBQYXRoPjxjbGlwUGF0aCBpZD0iY2xpcC1wYXRoLTQiPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTksMjlhMiwyLDAsMCwwLDIsMkgyMmEyLDIsMCwwLDAsMi0yVjIzYTIsMiwwLDAsMC0yLTJIMTFhMiwyLDAsMCwwLTIsMnY2WiIvPjxsaW5lIGNsYXNzPSJjbHMtMTEiIHgxPSIxOCIgeDI9IjE4IiB5MT0iMzEiIHkyPSIyMSIvPjxsaW5lIGNsYXNzPSJjbHMtMTEiIHgxPSI5IiB4Mj0iMTciIHkxPSIyNyIgeTI9IjI3Ii8+PGxpbmUgY2xhc3M9ImNscy0xMSIgeDE9IjE4IiB4Mj0iMjQiIHkxPSIyNSIgeTI9IjI1Ii8+PC9jbGlwUGF0aD48L3N2Zz4=" height="55px">';
+                }
+                $('#logo-box').html(logoMarkup);
+            }
+            $('#input-number').on('blur', function (e) {
+                e.preventDefault();
+                refreshLogo();
+            });
+            $('#pay-btn').on('click', function (e) {
+                e.preventDefault();
+                var number = $('#input-number').val();
+                var validNumber = Stripe.card.validateCardNumber(number);
+                var month = $('#input-exp-month').val();
+                var year = $('#input-exp-year').val();
+                var validExp = Stripe.card.validateExpiry(month, year);
+                var cvc = $('#input-cvc').val();
+                var validCvc = Stripe.card.validateCVC(cvc);
+                var holder = $('#input-holder').val();
+                $('#error-msg, #success-msg').addClass('hidden');
+                if (!number || !cvc || !holder || !month || !year) {
+                    $('#error-msg').removeClass('hidden');
+                    $('#error-text').text('Please complete all fields.');
+                    markEmpty();
+                } else if (!validNumber || !validExp || !validCvc) {
+                    $('#error-msg').removeClass('hidden').css('display', 'block');
+                    if (!validNumber) {
+                        $('#error-text').text('Invalid credit card number.');
+                    } else if (!validExp) {
+                        $('#error-text').text('Invalid expiration date.');
+                    } else if (!validCvc) {
+                        $('#error-text').text('Invalid CVC code.');
+                    }
+                } else {
+                    $('#success-msg').removeClass('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
