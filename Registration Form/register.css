@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  main {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+
+  form {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border: 1px solid #ccc;
+  }
+  
+  fieldset {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+  }
+
+  .participants-fieldset {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .participants-fieldset section {
+    border: 1px solid #ccc;
+    padding: 1rem;
+  }
+
+  #add-participant {
+    grid-column: 1 / -1;
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  #summary {
+    background-color: #e0ffe0;
+    border: 1px solid #0c0;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  
