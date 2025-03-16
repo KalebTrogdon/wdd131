@@ -1,50 +1,88 @@
 import recipes from './recipes.mjs';
 
-document.addEventListener('DOMContentLoaded', () => {
-    const recipe = recipes[0];
-
-    const recipeSection = document.getElementById('recipes');
-
-    const article = document.createElement('article');
-    article.classList.add('recipe');
-
-    article.innerHTML = `
-    <img src="${recipe.image}" alt="${recipe.name}" />
-    <h2>${recipe.name}</h2>
-    <p class="description">${recipe.description}</p>
-    <p class="info">
-      <span class="prep">Prep Time: ${recipe.prepTime}</span> |
-      <span class="cook">Cook Time: ${recipe.cookTime}</span>
-    </p>
-    <div class="rating" role="img" aria-label="Rating: ${recipe.rating} out of 5 stars">
-      ${generateStars(recipe.rating)}
-    </div>
-    <button class="view-recipe">View Recipe</button>
-  `;
-
-    recipeSection.innerHTML = '';
-    recipeSection.appendChild(article);
-});
-
-function generateStars(rating) {
-    const fullStar = '<span aria-hidden="true" class="icon-star">⭐</span>';
-    const emptyStar = '<span aria-hidden="true" class="icon-star-empty">☆</span>';
-    let starsHTML = '';
-
-    for (let i = 0; i < Math.floor(rating); i++) {
-        starsHTML += fullStar;
-    }
-
-    if (rating % 1 >= 0.5) {
-        starsHTML += fullStar;
-    }
-
-    const totalStars = 5;
-    const currentStars = starsHTML.split('⭐').length - 1;
-    for (let i = currentStars; i < totalStars; i++) {
-        starsHTML += emptyStar;
-    }
-
-    return starsHTML;
+function random(num) {
+  return Math.floor(Math.random() * num);
 }
 
+function getRandomListEntry(list) {
+  const listLength = list.length;
+  const randomNum = random(listLength);
+  return list[randomNum];
+}
+
+function tagsTemplate(tags) {
+  return tags.map(tag => `<li>${tag}</li>`).join('');
+}
+
+function ratingTemplate(rating) {
+  let html = `<span class="rating" role="img" aria-label="Rating: ${rating} out of 5 stars">`;
+  for (let i = 1; i <= 5; i++) {
+    if (i <= Math.floor(rating)) {
+      html += `<span aria-hidden="true" class="icon-star">⭐</span>`;
+    } else {
+      html += `<span aria-hidden="true" class="icon-star-empty">☆</span>`;
+    }
+  }
+  html += `</span>`;
+  return html;
+}
+
+function recipeTemplate(recipe) {
+  return `<figure class="recipe">
+    <img src="${recipe.image}" alt="${recipe.name}" />
+    <figcaption>
+      <ul class="recipe__tags">
+        ${tagsTemplate(recipe.tags)}
+      </ul>
+      <h2><a href="#">${recipe.name}</a></h2>
+      <p class="recipe__ratings">
+        ${ratingTemplate(recipe.rating)}
+      </p>
+      <p class="recipe__description">
+        ${recipe.description}
+      </p>
+    </figcaption>
+  </figure>`;
+}
+
+function renderRecipes(recipeList) {
+  const outputElement = document.getElementById('recipes');
+  const html = recipeList.map(recipe => recipeTemplate(recipe)).join('');
+  outputElement.innerHTML = html;
+}
+
+function init() {
+  const recipe = getRandomListEntry(recipes);
+  renderRecipes([recipe]);
+}
+
+function filterRecipes(query) {
+  query = query.toLowerCase();
+  const filtered = recipes.filter(recipe => {
+    const nameMatch = recipe.name.toLowerCase().includes(query);
+    const descriptionMatch = recipe.description.toLowerCase().includes(query);
+    const tagMatch = recipe.tags.some(tag => tag.toLowerCase().includes(query));
+    const ingredientMatch = recipe.recipeIngredient.some(ing => ing.toLowerCase().includes(query));
+    return nameMatch || descriptionMatch || tagMatch || ingredientMatch;
+  });
+  return filtered.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function searchHandler(e) {
+  e.preventDefault();
+  const searchInput = document.getElementById('search');
+  const query = searchInput.value.trim();
+  
+  if (query === '') {
+    init();
+  } else {
+    const filteredRecipes = filterRecipes(query);
+    renderRecipes(filteredRecipes);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  init();
+  const searchForm = document.getElementById('search-form');
+  searchForm.addEventListener('submit', searchHandler);
+});
