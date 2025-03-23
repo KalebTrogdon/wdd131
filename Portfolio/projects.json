@@ -1,0 +1,18 @@
+[
+    {
+      "title": "JavaScript Calculator",
+      "description": "A simple calculator using HTML, CSS, and vanilla JavaScript.",
+      "link": "https://github.com/KalebTrogdon/js-calculator"
+    },
+    {
+      "title": "Firebase Chat App",
+      "description": "Real-time chat application using Firebase Firestore.",
+      "link": "https://github.com/KalebTrogdon/firebase-chat"
+    },
+    {
+      "title": "RPG Stat Allocator",
+      "description": "Interactive stat allocation tool for an RPG game.",
+      "link": "https://github.com/KalebTrogdon/rpg-stats"
+    }
+  ]
+  
