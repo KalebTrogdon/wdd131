@@ -1,13 +1,13 @@
 [
     {
-      "title": "JavaScript Calculator",
-      "description": "A simple calculator using HTML, CSS, and vanilla JavaScript.",
-      "link": "https://github.com/KalebTrogdon/js-calculator"
+      "title": "Currency Changer",
+      "description": "A simple Currency Changer using HTML, CSS, and vanilla JavaScript.",
+      "link": "https://github.com/KalebTrogdon/Currency_changer"
     },
     {
-      "title": "Firebase Chat App",
-      "description": "Real-time chat application using Firebase Firestore.",
-      "link": "https://github.com/KalebTrogdon/firebase-chat"
+      "title": "Word Addventure",
+      "description": "A word game where you can create your own adventure.",
+      "link": "https://github.com/KalebTrogdon/Word-Adventure"
     },
     {
       "title": "RPG Stat Allocator",

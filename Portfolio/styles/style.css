@@ -75,4 +75,30 @@
     background-color: var(--primary);
     color: white;
   }
+  .game {
+    background-color: #f0f4f8;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 2rem auto;
+    max-width: 600px;
+  }
+  
+  #rollStatsBtn {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  #rollStatsBtn:hover {
+    background-color: #2563eb;
+  }
+  
+  #statsList {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+  }
   

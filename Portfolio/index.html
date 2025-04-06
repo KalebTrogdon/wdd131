@@ -6,11 +6,14 @@
   <title>Kaleb's Portfolio</title>
   <link rel="stylesheet" href="styles/style.css"/>
   <script type="module" src="scripts/main.js" defer></script>
+  <script type="module" src="scripts/stat-roller.js"></script>
+  <script type="module" src="scripts/number-guess.js" defer></script>
 </head>
 <body>
   <header>
     <img src="images/logo.png" alt="Logo" class="logo" />
     <h1>Kaleb's Developer Portfolio</h1>
+    <p class="subtitle">Aspiring Cybersecurity Consultant & Computer scientist working with Nano technology or fine particles</p>
     <nav>
       <a href="index.html">Home</a>
       <a href="projects.html">Projects</a>
@@ -21,7 +24,7 @@
   <main>
     <section class="hero">
       <h2 id="greeting">Hi, I’m Kaleb 👋</h2>
-      <p>I build things with code. Check out my projects and socials below!</p>
+      <p>I'm a hands-on learner, passionate about ethical hacking, web development, and game systems. This is where I share my personal projects and ideas with the world. Check out my projects and socials below!</p>
       <div class="socials">
         <a href="https://github.com/KalebTrogdon" target="_blank">GitHub</a>
         <a href="https://linkedin.com" target="_blank">LinkedIn</a>
@@ -29,11 +32,64 @@
       </div>
     </section>
 
+    <section class="about">
+      <h3>About Me</h3>
+      <p>I'm currently studying cybersecurity and Computer Science. I've worked on projects involving Firebase, JavaScript, and even game systems like an RPG stat allocator. My favorite projects are the ones that challenge me to think critically and creatively—whether that's building a secure login system or designing a branching narrative game.</p>
+      <p>Outside of coding, I love learning through games. I'm particularly into RPGs and strategy games because they mirror how I approach problem-solving: with curiosity, calculated risks, and a hunger for improvement. I'm also diving into network security with tools like Kali Linux and setting up controlled environments to ethically test systems.</p>
+    </section>
+
+    <section class="tools">
+      <h3>Technologies I Use</h3>
+      <ul>
+        <li>JavaScript / TypeScript</li>
+        <li>HTML & CSS</li>
+        <li>Firebase (Firestore, Auth, Hosting)</li>
+        <li>Node.js</li>
+        <li>Linux (Ubuntu Server, Kali)</li>
+        <li>WireGuard VPN</li>
+        <li>Oracle VirtualBox</li>
+        <li>Git & GitHub</li>
+      </ul>
+    </section>
+
     <section class="featured-projects">
       <h3>Featured Projects</h3>
-      <div id="project-preview" class="project-grid"></div>
+      <p>Here are a few projects I’m most proud of. These show off my skills in JavaScript, Firebase, RPG design, and more. Go to my Project page to get the code for my other projects.</p>
+      <div class="game" id="rpg-roller">
+        <h4>🧙‍♂️ RPG Stat Roller</h4>
+        <p>Click the button to roll your character's stats!</p>
+        <button id="rollStatsBtn">Roll Stats</button>
+        <ul id="statsList"></ul>
+      </div>
+
+      <div class="game" id="number-guess">
+        <h4>🎯 Number Guessing Game</h4>
+        <p>Guess a number between 1 and 10!</p>
+        <input type="number" id="guessInput" min="1" max="10" />
+        <button id="submitGuess">Guess</button>
+        <p id="guessResult"></p>
+      </div>
+    </section>
+
+
+    <section class="testimonials">
+      <h3>What People Say</h3>
+      <blockquote>
+        "Kaleb’s RPG stat system is one of the most flexible and clean designs I’ve seen from a student." — GameDev Instructor
+      </blockquote>
+      <blockquote>
+        "He shows incredible initiative when it comes to cybersecurity work and testing setups." — Cybersecurity Mentor
+      </blockquote>
+    </section>
+
+    <section class="contact">
+      <h3>Let's Connect</h3>
+      <p>If you're a recruiter, developer, or fellow student, feel free to reach out! I'm open to collaboration, feedback, and fun coding challenges.</p>
+      <p><strong>Email:</strong> <a href="mailto:byteknightcode@gmail.com">byteknightcode@gmail.com</a></p>
     </section>
   </main>
+
+  
 
   <footer>
     <p>&copy; 2025 Kaleb Trogdon</p>
