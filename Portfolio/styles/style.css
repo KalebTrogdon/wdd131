@@ -1,104 +1,162 @@
 :root {
-    --primary: #1f2937;
-    --accent: #3b82f6;
-    --bg: #f9fafb;
-    --text: #111827;
-    --font-main: 'Inter', sans-serif;
-  }
-  
-  body {
-    margin: 0;
-    font-family: var(--font-main);
-    background-color: var(--bg);
-    color: var(--text);
-  }
-  
-  header {
-    background-color: var(--primary);
-    color: white;
-    padding: 1rem;
-    text-align: center;
-  }
-  
-  nav {
-    margin-top: 0.5rem;
-  }
-  
-  nav a {
-    margin: 0 1rem;
-    color: #ffffffcc;
-    text-decoration: none;
-  }
-  
-  nav a:hover {
-    color: white;
-  }
-  
-  .logo {
-    width: 50px;
-    vertical-align: middle;
-  }
-  
-  .hero {
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  .socials a {
-    margin: 0.5rem;
-    display: inline-block;
-    text-decoration: none;
-    background: var(--accent);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-  }
-  
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1rem;
-    padding: 1rem;
-  }
-  
-  .project-card {
-    border: 1px solid #ccc;
-    padding: 1rem;
-    border-radius: 8px;
-    background-color: white;
-    box-shadow: 0 2px 4px #0000000d;
-  }
-  
-  footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: var(--primary);
-    color: white;
-  }
-  .game {
-    background-color: #f0f4f8;
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin: 2rem auto;
-    max-width: 600px;
-  }
-  
-  #rollStatsBtn {
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    background-color: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  
-  #rollStatsBtn:hover {
-    background-color: #2563eb;
-  }
-  
-  #statsList {
-    margin-top: 1rem;
-    padding-left: 1.5rem;
-  }
-  
+  --primary: #1f84ac;
+  --accent: #ff1053;
+  --bg: #414242;
+  --text: #ffffff;
+  --font-main: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+header {
+  background-color: var(--bg);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+nav {
+  margin-top: 0.5rem;
+}
+
+nav a {
+  margin: 0 1rem;
+  color: #ffffffcc;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: white;
+}
+
+.logo {
+  width: 50px;
+  vertical-align: middle;
+}
+
+.hero {
+  padding: 2rem;
+  text-align: center;
+}
+
+.socials a {
+  margin: 0.5rem;
+  display: inline-block;
+  text-decoration: none;
+  background: var(--accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.socials a:hover {
+  background: #e30e47;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.project-card {
+  border: 1px solid #777;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #2d2d2d;
+  color: var(--text);
+  box-shadow: 0 2px 4px #00000020;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--bg);
+  color: white;
+}
+
+.game {
+  background-color: #2d2d2d;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 600px;
+  color: var(--text);
+}
+
+#rollStatsBtn,
+#submitGuess {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#rollStatsBtn:hover,
+#submitGuess:hover {
+  background-color: #e30e47;
+}
+
+#statsList,
+#guessResult {
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+}
+
+input[type=\"number\"] {
+  padding: 0.4rem;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #999;
+  background-color: #555;
+  color: white;
+}
+
+.divider {
+  border: none;
+  height: 2px;
+  background-color: black;
+  margin: 1.5rem 0;
+}
+
+.email-link {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.email-link:hover {
+  color: white; 
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  background-color: var(--accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-btn:hover {
+  background-color: #e30e47; 
+  transform: scale(1.05);
+}
