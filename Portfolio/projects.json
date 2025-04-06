@@ -1,17 +1,17 @@
 [
     {
-      "title": "Currency Changer",
-      "description": "A simple Currency Changer using HTML, CSS, and vanilla JavaScript.",
+      "title": "💱 Currency Changer",
+      "description": "The Currency Changer is a straightforward tool that allows users to convert between different currencies using real-time exchange rates. Built with clean HTML, CSS, and vanilla JavaScript, this project emphasizes DOM interaction and modular code structure. It’s a great example of using API calls to fetch live data, parse it, and present it in a responsive, user-friendly format. This project demonstrates my ability to integrate external services into a frontend app while keeping performance and accessibility in mind.",
       "link": "https://github.com/KalebTrogdon/Currency_changer"
     },
     {
-      "title": "Word Adventure",
-      "description": "A word game where you can create your own adventure.",
+      "title": "✍️ Word Adventure",
+      "description": "Word Adventure is a text-based game where players choose their own path through a branching narrative. The game uses arrays and objects to manage different story paths, making it easily expandable for future scenarios. Built for the web, it emphasizes player choice and replayability. I created this project to explore how storytelling and programming intersect, and to flex my skills in managing complex conditional logic and game-state tracking using JavaScript alone.",
       "link": "https://github.com/KalebTrogdon/Word-Adventure"
     },
     {
-      "title": "RPG Stat Allocator",
-      "description": "Interactive stat allocation tool for an RPG game.",
+      "title": "🧙 RPG Stat Allocator",
+      "description": "The RPG Stat Allocator is an interactive mini-app that allows users to distribute a set number of stat points across core RPG attributes like strength, defense, and dodge chance. It uses JavaScript objects and arrays to dynamically update values and provide instant feedback. This project showcases my love for game mechanics and demonstrates an understanding of event handling, input validation, and simple UI feedback. It’s a perfect reflection of how I blend creativity with technical skill.",
       "link": "https://github.com/KalebTrogdon/wdd131/blob/main/Portfolio/scripts/stat-roller.js"
     }
   ]

@@ -160,3 +160,12 @@ nav {
   background-color: #e30e47; 
   transform: scale(1.05);
 }
+
+a:link {
+  color: #ff1053;
+}
+
+a:visited {
+  color: #ffffff;
+}
+
